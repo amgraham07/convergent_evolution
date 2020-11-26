@@ -12,6 +12,9 @@ base=`basename $fn`;
 # the read filename, without the *at7147 suffix
 rf=${base%at7147};
 
+#removes the header we added in earlier to help name the files in the first line
+perl -i -p -e 's/[0-9]+.fasta n//g;' ${dir}/${rf}at7147
+
 #remove everything in between the {}, including the {}, and send to a new .fasta file
 sed -e ':again' -e N -e '$!b again' -e 's/{[^}]*}//g' ${dir}/${rf}at7147 > ${dir}/${rf}at7147.fasta
 
@@ -19,9 +22,7 @@ sed -e ':again' -e N -e '$!b again' -e 's/{[^}]*}//g' ${dir}/${rf}at7147 > ${dir
 sed -i '' -e ':again' -e N -e '$!b again' -e 's/"[^}]*"//g' ${dir}/${rf}at7147.fasta
 
 #delete everything after the : including the :, edits done in place without a new file
-sed -i '' -e 's/:[^:]*$//g' ${dir}/${rf}at7147.fasta
-
-#AGAIN delete everything after the : including the :, edits done in place without a new file
+perl -i -p -e 's/ :7147//g;' ${dir}/${rf}at7147.fasta
 sed -i '' -e 's/:[^:]*$//g' ${dir}/${rf}at7147.fasta
 
 #rename based on precompiled tab delimited file "species_rename.txt"
