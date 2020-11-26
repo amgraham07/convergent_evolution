@@ -16,15 +16,13 @@ rf=${base%.fasta};
 awk 'NR==1 {print; exit}' ${dir}/${rf}.fasta >> firstline.txt
 
 #delimts based on tab instead of space, grabs the 3rd column and exports to new file
-awk -v OFS="\t" '$1=$1' firstline.txt > firstline_2.txt | cut -f3 -d$'\t' firstline_2.txt > firstline_3.txt
+awk -v OFS="\t" '$1=$1' firstline.txt > firstline_2.txt
+cut -f1,4 -d$'\t' firstline_2.txt > firstline_3.txt
+
 
 #replaces extraneous information from the 3rd column
 sed -i -e 's/"pub_og_id":"//g' firstline_3.txt
 sed -i -e 's/",//g' firstline_3.txt
-
-#creates a list of all the old file names so that they can be combined with the list of all the new file names (ie. orthogroup information)
-ls *.fasta > OG_names.txt
-paste OG_names.txt firstline_3.txt > final_names.txt
 
 sed -i -e 's/	/,/g' final_names.txt
 while IFS=\, read old new; do mv "$old" "$new"; done < final_names.txt
