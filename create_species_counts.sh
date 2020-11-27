@@ -32,6 +32,8 @@ sed -i '' -E $'s/ /\t/g' ${dir}/${rf}at7147_labeled.txt
 #combined all 2nd columns into one file
 cut -f2 -d$'\t' ${dir}/${rf}at7147_labeled.txt > ${dir}/${rf}at7147_column_2.txt
 
+done
+
 for f in *at7147_column_2.txt; do cat combined_counts.txt | paste - $f >temp; cp temp combined_counts.txt; done; rm temp
  
 #delete all middle-man files clogging up space (don't delete _column_2.txt because it affects the combined_test.txt file)
