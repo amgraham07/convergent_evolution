@@ -18,10 +18,6 @@ fgrep -of diptera_count.txt ${dir}/${rf}at7147_renamed.fasta > ${dir}/${rf}at714
 # combine those list and count instances, will be either 1, or 2
 cat ${dir}/${rf}at7147_list.txt diptera_count.txt | sort | uniq -c | awk '{print $2 " " $1}' > ${dir}/${rf}at7147_counts.txt
 
-# change the 1 to 0, and 2 to 1 to match "real" counts
-sed -i '' -e ':again' -e N -e '$!b again' -e 's/1/0/g' ${dir}/${rf}at7147_counts.txt
-sed -i '' -e ':again' -e N -e '$!b again' -e 's/2/1/g' ${dir}/${rf}at7147_counts.txt
-
 # add with file names as header
 echo "rows $(basename ${dir}/${rf}at7147_counts.txt _counts.txt)" > ${dir}/${rf}at7147_header.txt
 cat ${dir}/${rf}at7147_header.txt ${dir}/${rf}at7147_counts.txt > ${dir}/${rf}at7147_labeled.txt
@@ -35,6 +31,8 @@ cut -f2 -d$'\t' ${dir}/${rf}at7147_labeled.txt > ${dir}/${rf}at7147_column_2.txt
 done
 
 for f in *at7147_column_2.txt; do cat combined_counts.txt | paste - $f >temp; cp temp combined_counts.txt; done; rm temp
+
+awk '{print ($1 - 1) " " $2}' combined_counts.txt > combined_counts_v1.txt
  
 #delete all middle-man files clogging up space (don't delete _column_2.txt because it affects the combined_test.txt file)
 rm *_header.txt
