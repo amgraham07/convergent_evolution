@@ -30,6 +30,8 @@ cut -f2 -d$'\t' ${dir}/${rf}at7147_labeled.txt > ${dir}/${rf}at7147_column_2.txt
 
 done
 
+#dont get caught in a loop within a loop here
+
 for f in *at7147_column_2.txt; do cat combined_counts.txt | paste - $f >temp; cp temp combined_counts.txt; done; rm temp
  
 #delete all middle-man files clogging up space (don't delete _column_2.txt because it affects the combined_test.txt file)
