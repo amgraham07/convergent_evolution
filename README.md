@@ -3,7 +3,7 @@
 ### Some of these scripts have been featured in various publications during my NIH T32 Hematology postdoctoral fellowship, including: TBA
 ### Project 1: Determining similar genetic pathways used by multiple high-altitude invading lineages
 #### [1] RERConverge_Hypoxia.R: walkthrough using RERConverge package for "hypoxia" phenotype
-#### [2] bt_run.pl: script to run BayesTraits. Input needed are trait file, pseudo gene counts, nexus tree, independant and depenant binary test file (N.Clark)
+#### [2] bt_run_thresholds.pl: script to run BayesTraits. Input needed are trait file, pseudo gene counts, nexus tree, independant and depenant binary test file with another layer of thresholds which are user specified (N.Clark)
 #### [3] filter_aln_species.pl: Perl script to filter fasta alignments based on number of sequences. To read the usage, run it without arguments (N.Clark)
 
 ### Project 2: Determining pseudogenization events associated with high-altitude adaptation
