@@ -12,8 +12,7 @@ base=`basename $fn`;
 # the read filename, without the *_protein.faa_7tm4_sequences.txt suffix
 rf=${base%.*_protein.faa_7tm4_sequences.txt};
 
-# Do whatever we want with it
-pull only sequences with olfactory in the name since 7tm_4 isn't as specific apparently
+# Do whatever we want with it - pull only sequences with olfactory in the name since 7tm_4 isn't as specific apparently
 grep '>' ${dir}/${rf} | sed 's/>//g' > ${dir}/${rf}_id.fa
 grep 'olfactory' ${dir}/${rf}_id.fa > ${dir}/${rf}_olfactory.fa
 seqtk subseq ${dir}/${rf} ${dir}/${rf}_olfactory.fa > ${dir}/${rf}_olfactory_2.fa
